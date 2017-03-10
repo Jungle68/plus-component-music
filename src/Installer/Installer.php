@@ -70,14 +70,14 @@ class Installer extends AbstractInstaller
             include component_base_path('/databases/table_musics_column.php');
         }
 
-        // if (!Schema::hasTable('music_specials')) {
-        //     Schema::create('music_specials', function (Blueprint $table) {
-        //         $table->engine = 'InnoDB';
-        //         $table->increments('id')->comment('主键');
-        //         $table->timestamps();
-        //     });
-        //     include component_base_path('/src/databases/table_music_specials_column.php');
-        // }
+        if (!Schema::hasTable('music_specials')) {
+            Schema::create('music_specials', function (Blueprint $table) {
+                $table->engine = 'InnoDB';
+                $table->increments('id')->comment('主键');
+                $table->timestamps();
+            });
+            include component_base_path('/src/databases/table_music_specials_column.php');
+        }
 
         // if (!Schema::hasTable('music_comments')) {
         //     Schema::create('music_comments', function (Blueprint $table) {

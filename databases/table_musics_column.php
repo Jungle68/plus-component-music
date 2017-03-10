@@ -34,3 +34,27 @@ if (!Schema::hasColumn($component_table_name, 'lyric')) {
         $table->text('lyric')->nullable()->comment('歌曲长度');
     });
 }
+
+if (!Schema::hasColumn($component_table_name, 'taste_count')) {
+    Schema::table($component_table_name, function (Blueprint $table) {
+        $table->integer('taste_count')->default(0)->comment('播放数量');
+    });
+}
+
+if (!Schema::hasColumn($component_table_name, 'share_count')) {
+    Schema::table($component_table_name, function (Blueprint $table) {
+        $table->integer('share_count')->default(0)->comment('分享数量');
+    });
+}
+
+if (!Schema::hasColumn($component_table_name, 'comment_count')) {
+    Schema::table($component_table_name, function (Blueprint $table) {
+        $table->integer('comment_count')->default(0)->comment('评论数量');
+    });
+}
+
+if (!Schema::hasColumn($component_table_name, 'collect_count')) {
+    Schema::table($component_table_name, function (Blueprint $table) {
+        $table->integer('collect_count')->default(0)->comment('收藏数量');
+    });
+}
