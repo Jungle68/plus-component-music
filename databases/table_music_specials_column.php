@@ -13,7 +13,7 @@ if (!Schema::hasColumn($component_table_name, 'title')) {
 
 if (!Schema::hasColumn($component_table_name, 'storage')) {
     Schema::table($component_table_name, function (Blueprint $table) {
-        $table->integer('storage')->comment('歌曲封面id');
+        $table->integer('storage')->comment('封面id');
     });
 }
 

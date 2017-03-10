@@ -31,7 +31,7 @@ if (!Schema::hasColumn($component_table_name, 'last_time')) {
 
 if (!Schema::hasColumn($component_table_name, 'lyric')) {
     Schema::table($component_table_name, function (Blueprint $table) {
-        $table->text('lyric')->nullable()->comment('歌曲长度');
+        $table->text('lyric')->nullable()->comment('歌词');
     });
 }
 

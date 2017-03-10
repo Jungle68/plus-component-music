@@ -76,27 +76,54 @@ class Installer extends AbstractInstaller
                 $table->increments('id')->comment('主键');
                 $table->timestamps();
             });
-            include component_base_path('/src/databases/table_music_specials_column.php');
+            include component_base_path('/databases/table_music_specials_column.php');
         }
 
-        // if (!Schema::hasTable('music_comments')) {
-        //     Schema::create('music_comments', function (Blueprint $table) {
-        //         $table->engine = 'InnoDB';
-        //         $table->increments('id')->comment('主键');
-        //         $table->timestamps();
-        //     });
-        //     include component_base_path('/src/databases/table_comments_column.php');
-        // }
+        if (!Schema::hasTable('music_special_links')) {
+            Schema::create('music_special_links', function (Blueprint $table) {
+                $table->engine = 'InnoDB';
+                $table->increments('id')->comment('主键');
+                $table->timestamps();
+            });
+            include component_base_path('/databases/table_music_special_links_column.php');
+        }
 
-        // if (!Schema::hasTable('music_diggs')) {
-        //     Schema::create('music_diggs', function (Blueprint $table) {
-        //         $table->engine = 'InnoDB';
-        //         $table->increments('id')->comment('主键');
-        //         $table->timestamps();
-        //     });
-        //     include component_base_path('/src/databases/table_diggs_column.php');
-        // }
-        
+        if (!Schema::hasTable('music_comments')) {
+            Schema::create('music_comments', function (Blueprint $table) {
+                $table->engine = 'InnoDB';
+                $table->increments('id')->comment('主键');
+                $table->timestamps();
+            });
+            include component_base_path('/databases/table_music_comments_column.php');
+        }
+
+        if (!Schema::hasTable('music_diggs')) {
+            Schema::create('music_diggs', function (Blueprint $table) {
+                $table->engine = 'InnoDB';
+                $table->increments('id')->comment('主键');
+                $table->timestamps();
+            });
+            include component_base_path('/databases/table_music_diggs_column.php');
+        }
+
+        if (!Schema::hasTable('music_collections')) {
+            Schema::create('music_collections', function (Blueprint $table) {
+                $table->engine = 'InnoDB';
+                $table->increments('id')->comment('主键');
+                $table->timestamps();
+            });
+            include component_base_path('/databases/table_music_collections_column.php');
+        }
+
+        if (!Schema::hasTable('music_singers')) {
+            Schema::create('music_singers', function (Blueprint $table) {
+                $table->engine = 'InnoDB';
+                $table->increments('id')->comment('主键');
+                $table->timestamps();
+            });
+            include component_base_path('/databases/table_music_singers_column.php');
+        }
+
         $next();
     }
 
@@ -111,12 +138,24 @@ class Installer extends AbstractInstaller
     public function update(Closure $next)
     {
         include component_base_path('/databases/table_musics_column.php');
+        include component_base_path('/databases/table_music_specials_column.php');
+        include component_base_path('/databases/table_music_special_links_column.php');
+        include component_base_path('/databases/table_music_comments_column.php');
+        include component_base_path('/databases/table_music_diggs_column.php');
+        include component_base_path('/databases/table_music_collections_column.php');
+        include component_base_path('/databases/table_music_singers_column.php');
         $next();
     }
 
     public function uninstall(Closure $next)
     {
         Schema::dropIfExists('musics');
+        Schema::dropIfExists('music_comments');
+        Schema::dropIfExists('music_specials');
+        Schema::dropIfExists('music_special_links');
+        Schema::dropIfExists('music_diggs');
+        Schema::dropIfExists('music_collections');
+        Schema::dropIfExists('music_singers');
         $next();
     }
 }
