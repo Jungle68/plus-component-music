@@ -52,9 +52,3 @@ if (!Schema::hasColumn($component_table_name, 'comment_count')) {
         $table->integer('comment_count')->default(0)->comment('评论数量');
     });
 }
-
-if (!Schema::hasColumn($component_table_name, 'collect_count')) {
-    Schema::table($component_table_name, function (Blueprint $table) {
-        $table->integer('collect_count')->default(0)->comment('收藏数量');
-    });
-}

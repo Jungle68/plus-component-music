@@ -11,6 +11,9 @@ class MusicSpecial extends Model
 
     public function musics()
     {
-        return $this->hasMany(Music::class, 'id', 'music_id');
+        $table = app(MusicSpecialLink::class)->getTable();
+
+        return $this->belongsToMany(Music::class, $table, 'music_id', 'music_id')
+            ->withPivot('music_id', 'id');
     }
 }
