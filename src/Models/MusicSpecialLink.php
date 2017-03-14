@@ -9,5 +9,8 @@ class MusicSpecialLink extends Model
 {
     protected $table = 'music_special_links';
 
-    
+    public function musicInfo()
+    {
+    	return $this->hasOne(Music::class, 'id', 'music_id');
+    }
 }
