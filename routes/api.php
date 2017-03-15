@@ -31,7 +31,7 @@ Route::group([
 	// 取消点赞
 	Route::delete('/music/{music_id}/digg', 'MusicDiggController@cancelDiggMusic');
 	// 收藏
-	Route::post('/music/{music_id}/collection', 'MusicCollectionController@addMusicCollection');
+	Route::post('/music/special/{special_id}/collection', 'MusicCollectionController@addMusicCollection');
 	// 取消收藏
-	Route::delete('/music/{music_id}/collection', 'MusicCollectionController@delMusicCollection');
+	Route::delete('/music/special/{special_id}/collection', 'MusicCollectionController@delMusicCollection');
 });

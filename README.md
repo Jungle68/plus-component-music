@@ -10,6 +10,10 @@
 
 - [取消点赞歌曲](/documents/取消点赞歌曲.md)
 
+- [收藏专辑](/documents/收藏专辑.md)
+
+- [取消收藏专辑](/documents/取消收藏专辑.md)
+
 - [评论歌曲](/documents/评论歌曲.md)
 
 - [评论专辑](/documents/评论专辑.md)

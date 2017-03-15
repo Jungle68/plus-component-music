@@ -9,5 +9,5 @@ class MusicCollection extends Model
 {
     protected $table = 'music_collections';
 
-    
+    protected $fillable = ['user_id', 'special_id'];
 }
