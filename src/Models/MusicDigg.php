@@ -9,5 +9,5 @@ class MusicDigg extends Model
 {
     protected $table = 'music_diggs';
 
-    
+    protected $fillable = ['user_id', 'music_id'];
 }

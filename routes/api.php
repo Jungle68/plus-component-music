@@ -12,16 +12,16 @@ Route::group([
 	]
 ], function() {
 	// 添加评论
-	Route::post('/feeds/{music_id}/comment', 'FeedCommentController@addComment')
+	Route::post('/music/{music_id}/comment', 'MusicCommentController@addComment')
 	->middleware(MusicMiddleware\VerifyCommentContent::class); // 验证评论内容
 	//删除评论 TODO 根据权限及实际需求增加中间件
-	Route::delete('/feeds/{music_id}/comment/{comment_id}', 'FeedCommentController@delComment');
+	Route::delete('/music/{music_id}/comment/{comment_id}', 'MusicCommentController@delComment');
 	// 点赞
-	Route::post('/feeds/{music_id}/digg', 'FeedDiggController@diggFeed');
+	Route::post('/music/{music_id}/digg', 'MusicDiggController@diggMusic');
 	// 取消点赞
-	Route::delete('/feeds/{music_id}/digg', 'FeedDiggController@cancelDiggFeed');
+	Route::delete('/music/{music_id}/digg', 'MusicDiggController@cancelDiggMusic');
 	// 收藏
-	Route::post('/feeds/{music_id}/collection', 'FeedCollectionController@addFeedCollection');
+	Route::post('/music/{music_id}/collection', 'MusicCollectionController@addMusicCollection');
 	// 取消收藏
-	Route::delete('/feeds/{music_id}/collection', 'FeedCollectionController@delFeedCollection');
+	Route::delete('/music/{music_id}/collection', 'MusicCollectionController@delMusicCollection');
 });
