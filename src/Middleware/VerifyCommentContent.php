@@ -24,7 +24,7 @@ class VerifyCommentContent
         if (!$request->input('comment_content')) {
             return response()->json([
                 'status' => false,
-                'code' => 6007,
+                'code' => 8005,
                 'message' => '评论内容不能为空'
             ])->setStatusCode(400);
         }

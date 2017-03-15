@@ -13,4 +13,9 @@ class Music extends Model
     {
     	return $this->hasOne(MusicSinger::class, 'id', 'singer');
     }
+
+    public function speciallinks()
+    {
+    	return $this->hasMany(MusicSpecialLink::class, 'music_id', 'id');
+    }
 }
