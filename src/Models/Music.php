@@ -9,5 +9,8 @@ class Music extends Model
 {
     protected $table = 'musics';
 
-    
+    public function singer()
+    {
+    	return $this->hasOne(MusicSinger::class, 'id', 'singer');
+    }
 }

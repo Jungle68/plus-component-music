@@ -2,9 +2,9 @@
 // 获取专辑
 Route::get('/music/specials', 'MusicSpecialController@getSpecialList');
 // 专辑详情
-Route::get('/music/specials/{special_id}', 'SpecialController@getSpecialList')->where(['special_id' => '[0-9]+']);
+Route::get('/music/specials/{special_id}', 'MusicSpecialController@getSpecialInfo')->where(['special_id' => '[0-9]+']);
 // 歌曲详情
-Route::get('/music/{music_id}', 'SpecialController@getSpecialList')->where(['music_id' => '[0-9]+']);
+Route::get('/music/{music_id}', 'MusicController@getMusicInfo')->where(['music_id' => '[0-9]+']);
 
 Route::group([
 	'middleware' => [
