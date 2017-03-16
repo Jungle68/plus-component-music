@@ -24,6 +24,7 @@ class MusicSpecialController extends Controller
                     $query->where('id', '<', $request->max_id);
                 }
             })
+            ->with('storage')
             ->take($limit)
             ->get();
         return response()->json([
@@ -45,7 +46,9 @@ class MusicSpecialController extends Controller
     public function getSpecialInfo(Request $request, $special_id)
     {
         $specialInfo = MusicSpecial::where('id', $special_id)->with(['musics' => function($query) {
-            $query->with('musicInfo');
+            $query->with(['musicInfo' => function($query) {
+                $query->with('storage');
+            }]);
         }])->first();
 
         if (!$specialInfo) {

@@ -12,7 +12,9 @@ class MusicController extends Controller
 {
 	public function getMusicInfo(Request $request, $music_id)
 	{
-		$musicInfo = Music::where('id', $music_id)->with('singer')->first();
+		$musicInfo = Music::where('id', $music_id)->with(['singer' => function ($query) {
+            $query->with('cover');
+        }])->first();
 		if (!$musicInfo) {
            return response()->json([
                 'status' => false,
