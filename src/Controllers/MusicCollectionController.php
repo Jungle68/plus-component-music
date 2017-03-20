@@ -59,6 +59,6 @@ class MusicCollectionController extends Controller
         return response()->json(static::createJsonData([
             'status' => true,
             'message' => '取消收藏成功',
-        ]))->setStatusCode(201);
+        ]))->setStatusCode(204);
     }
 }
