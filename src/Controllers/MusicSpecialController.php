@@ -47,7 +47,9 @@ class MusicSpecialController extends Controller
     {
         $specialInfo = MusicSpecial::where('id', $special_id)->with(['musics' => function($query) {
             $query->with(['musicInfo' => function($query) {
-                $query->with('storage');
+                $query->with(['singer' => function ($query) {
+                    $query->with('cover');
+                }]);
             }]);
         }])->first();
 

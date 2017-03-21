@@ -19,9 +19,4 @@ class Music extends Model
     {
     	return $this->hasMany(MusicSpecialLink::class, 'music_id', 'id');
     }
-
-    public function storage()
-    {
-    	return $this->hasOne(Storage::class, 'id', 'storage')->select('id','image_width','image_height');
-    }
 }
