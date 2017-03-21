@@ -1,5 +1,9 @@
 # plus-component-music
 
+# 消息对照表
+
+[消息对照表](/documents/Music消息对照表.md)
+
 ## 接口目录
 
 - [专辑列表](/documents/专辑列表.md)
