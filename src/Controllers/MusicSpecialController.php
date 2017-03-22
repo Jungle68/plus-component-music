@@ -3,8 +3,10 @@
 namespace Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Zhiyi\Plus\Http\Controllers\Controller;
 use Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\Models\MusicSpecial;
+use Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\Models\MusicDigg;
 
 class MusicSpecialController extends Controller
 {
@@ -45,6 +47,7 @@ class MusicSpecialController extends Controller
      */
     public function getSpecialInfo(Request $request, $special_id)
     {
+        $uid = Auth::guard('api')->user()->id ?? 0;
         $specialInfo = MusicSpecial::where('id', $special_id)->with(['musics' => function($query) {
             $query->with(['musicInfo' => function($query) {
                 $query->with(['singer' => function ($query) {
@@ -59,6 +62,9 @@ class MusicSpecialController extends Controller
                 'code' => 8001,
                 'message' => '专辑不存在或已被删除'
             ])->setStatusCode(404); 
+        }
+        foreach ($specialInfo->musics as $key) {
+            $key->musicInfo->isdiggmusic = MusicDigg::where(['user_id' => $uid, 'music_id' => $key->id])->first() ? 1 : 0;
         }
 
         return response()->json([
