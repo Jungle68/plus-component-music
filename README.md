@@ -10,6 +10,8 @@
 
 - [专辑详情](/documents/专辑详情.md)
 
+- [歌曲详情](/documents/歌曲详情.md)
+
 - [点赞歌曲](/documents/点赞歌曲.md)
 
 - [取消点赞歌曲](/documents/取消点赞歌曲.md)
