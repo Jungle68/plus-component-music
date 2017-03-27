@@ -1,6 +1,7 @@
 <?php
 namespace Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\Controllers;
 
+use DB;
 use Zhiyi\Plus\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\Models\Music;
@@ -84,9 +85,11 @@ class MusicCommentController extends Controller
 		$MusicComment->comment_content = $request->comment_content;
     	$MusicComment->comment_mark = $request->input('comment_mark', ($request->user()->id.Carbon::now()->timestamp)*1000);//默认uid+毫秒时间戳
     	
-    	$MusicComment->save();
-    	Music::where('id', $music->id)->increment('comment_count');//增加评论数量
-		MusicSpecial::whereIn('id', $music->speciallinks->pluck('special_id'))->increment('comment_count');//增加评论数量
+    	DB::transaction(function () use ($MusicComment, $music) {
+	    	$MusicComment->save();
+	    	Music::where('id', $music->id)->increment('comment_count');//增加评论数量
+			MusicSpecial::whereIn('id', $music->speciallinks->pluck('special_id'))->increment('comment_count');//增加评论数量
+    	});
 
         return response()->json(static::createJsonData([
                 'status' => true,
@@ -110,8 +113,10 @@ class MusicCommentController extends Controller
 		$MusicComment->reply_to_user_id = $request->reply_to_user_id ?? 0;
 		$MusicComment->comment_content = $request->comment_content;
     	
-    	$MusicComment->save();
-    	MusicSpecial::where('id', $special_id)->increment('comment_count');//增加评论数量
+    	DB::transaction(function () use ($MusicComment, $special_id) {
+	    	$MusicComment->save();
+	    	MusicSpecial::where('id', $special_id)->increment('comment_count');//增加评论数量
+    	});
 
         return response()->json(static::createJsonData([
                 'status' => true,
