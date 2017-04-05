@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Zhiyi\Plus\Http\Controllers\Controller;
 use Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\Models\MusicSpecial;
+use Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\Models\MusicCollection;
 use Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\Models\MusicDigg;
 
 class MusicSpecialController extends Controller
@@ -56,8 +57,8 @@ class MusicSpecialController extends Controller
             }]);
         }])->first();
 
-        $specialInfo->is_collection = MusicCollection::where('special_id', $special_id)->where('user_id', $user_id)->get()->isEmpty() ? 0 : 1;
-        
+        $specialInfo->is_collection = MusicCollection::where('special_id', $special_id)->where('user_id', $uid)->get()->isEmpty() ? 0 : 1;
+
         if (!$specialInfo) {
            return response()->json([
                 'status' => false,
