@@ -2,6 +2,7 @@
 
 namespace Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\Controllers;
 
+use DB;
 use Illuminate\Http\Request;
 use Zhiyi\Plus\Http\Controllers\Controller;
 use Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\Models\Music;
@@ -27,8 +28,11 @@ class MusicCollectionController extends Controller
                 'message' => '已收藏该专辑',
             ]))->setStatusCode(400);
         }
-        
-        MusicCollection::create($collection);
+       
+        DB::transaction(function() use ($collection, $special_id) {
+            MusicCollection::create($collection);
+            MusicSpecial::where('id', $special_id)->increment('collect_count');
+        });
 
         return response()->json(static::createJsonData([
             'status' => true,
@@ -54,7 +58,11 @@ class MusicCollectionController extends Controller
             ]))->setStatusCode(400);
         }
 
-        MusicCollection::where($collection)->delete();
+        DB::transaction(function() use ($collection, $special_id) {
+            MusicCollection::where($collection)->delete();
+            MusicSpecial::where('id', $special_id)->decrement('collect_count');
+        });
+        
         
         return response()->json(static::createJsonData([
             'status' => true,
