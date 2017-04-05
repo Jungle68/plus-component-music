@@ -77,4 +77,14 @@ class MusicSpecialController extends Controller
                 'data' => $specialInfo
         ])->setStatusCode(200);
     }
+
+    public function share(int $special_id)
+    {
+        MusicSpecial::where('id', $special_id)->increment('share_count');
+
+        return response()->json(static::createJsonData([
+            'status' => true,
+            'message' => 'ok',
+        ]))->setStatusCode(201);
+    }
 }

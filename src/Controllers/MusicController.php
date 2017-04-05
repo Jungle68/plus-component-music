@@ -12,7 +12,7 @@ use Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\Models\MusicSpecialLink;
 
 class MusicController extends Controller
 {
-    public function getMusicInfo(Request $request, $music_id)
+    public function getMusicInfo(Request $request, int $music_id)
     {
         $uid = Auth::guard('api')->user()->id ?? 0;
         $musicInfo = Music::where('id', $music_id)->with(['singer' => function ($query) {
@@ -37,5 +37,16 @@ class MusicController extends Controller
             'message' => '获取成功',
             'data' => $musicInfo
         ])->setStatusCode(200);
+    }
+
+    public function share(int $music_id)
+    {
+        Music::where('id', $music_id)->increment('share_count');
+        MusicSpecial::whereIn('id', MusicSpecialLink::where('music_id', $music_id)->pluck('special_id'))->increment('share_count'); 
+
+        return response()->json(static::createJsonData([
+            'status' => true,
+            'message' => 'ok',
+        ]))->setStatusCode(201);
     }
 }

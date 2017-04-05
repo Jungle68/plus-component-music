@@ -27,3 +27,7 @@
 - [歌曲评论列表](/documents/歌曲评论列表.md)
 
 - [专辑评论列表](/documents/专辑评论列表.md)
+
+- [分享专辑](/documents/分享专辑.md)
+
+- [分享歌曲](/documents/分享歌曲.md)

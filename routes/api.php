@@ -22,6 +22,10 @@ Route::group([
 	// 添加专辑评论
 	Route::post('/music/special/{special_id}/comment', 'MusicCommentController@addSpecialComment')
 	->middleware(MusicMiddleware\VerifyCommentContent::class); // 验证评论内容
+	// 分享歌曲统计
+	Route::patch('/music/{music_id}/share', 'MusicController@share');
+	// 分享专辑统计
+	Route::patch('/music/special/{special_id}/share', 'MusicSpecialController@share');
 	// 查看专辑评论列表
 	Route::get('/music/special/{special_id}/comment', 'MusicCommentController@getSpecialCommentList');
 	//删除评论 TODO 根据权限及实际需求增加中间件
