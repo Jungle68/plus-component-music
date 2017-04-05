@@ -56,6 +56,8 @@ class MusicSpecialController extends Controller
             }]);
         }])->first();
 
+        $specialInfo->is_collection = MusicCollection::where('special_id', $special_id)->where('user_id', $user_id)->get()->isEmpty() ? 0 : 1;
+        
         if (!$specialInfo) {
            return response()->json([
                 'status' => false,
