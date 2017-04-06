@@ -18,7 +18,7 @@ class Info implements ComponentInfoInterface
      */
     public function getName(): string
     {
-        return 'Example';
+        return '音乐模块';
     }
 
     /**
@@ -54,6 +54,6 @@ class Info implements ComponentInfoInterface
      */
     public function getAdminEntry()
     {
-        return route('example.admin');
+        return route('music.admin');
     }
 }

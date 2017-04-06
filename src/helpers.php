@@ -98,8 +98,13 @@ function resource_path()
  */
 function view($view = null, $data = [], $mergeData = [])
 {
-    $factory = plus_view();
-    $factory->addLocation(base_path('/view'));
+    $finder = app(\Illuminate\View\FileViewFinder::class, [
+        'files' => app(\Illuminate\Filesystem\Filesystem::class),
+        'paths' => [base_path('/views')],
+    ]);
+
+    $factory = app(\Illuminate\Contracts\View\Factory::class);
+    $factory->setFinder($finder);
 
     if (func_num_args() === 0) {
         return $factory;
