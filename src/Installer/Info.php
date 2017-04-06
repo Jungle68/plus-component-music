@@ -54,6 +54,6 @@ class Info implements ComponentInfoInterface
      */
     public function getAdminEntry()
     {
-        return route('music.admin');
+        return route('music:admin');
     }
 }
