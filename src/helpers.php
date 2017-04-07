@@ -57,7 +57,7 @@ function base_path($path = '')
  */
 function component_name()
 {
-    return 'medz/plus-component-example';
+    return 'zhiyicx/plus-component-music';
 }
 
 /**

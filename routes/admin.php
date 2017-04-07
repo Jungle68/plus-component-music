@@ -1,5 +1,6 @@
 <?php
 use Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\Middleware as MusicMiddleware;
+use Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\AdminControllers as Controller;
 
 use Illuminate\Support\Facades\Route;
 
