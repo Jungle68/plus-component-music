@@ -112,7 +112,8 @@ class MusicCommentController extends Controller
 		$MusicComment->special_id = $special_id;
 		$MusicComment->reply_to_user_id = $request->reply_to_user_id ?? 0;
 		$MusicComment->comment_content = $request->comment_content;
-    	
+    	$MusicComment->comment_mark = $request->input('comment_mark', ($request->user()->id.Carbon::now()->timestamp)*1000);//默认uid+毫秒时间戳
+
     	DB::transaction(function () use ($MusicComment, $special_id) {
 	    	$MusicComment->save();
 	    	MusicSpecial::where('id', $special_id)->increment('comment_count');//增加评论数量
@@ -124,5 +125,28 @@ class MusicCommentController extends Controller
                 'message' => '评论成功',
                 'data' => $MusicComment->id
             ]))->setStatusCode(201);
+	}
+
+	public function delComment(Request $request, int $comment_id)
+	{
+		$uid = $Request->user()->id;
+        $comment = MusicComment::find($comment_id);
+
+        if ($comment && $uid == $comment->user_id) {
+            DB::transaction(function () use ($comment) {
+                $comment->delete();
+                if ($comment->music_id > 0) {
+                	Music::where('id', $comment->music_id)->decrement('comment_count');
+                	MusicSpecial::whereIn('id', MusicSpecialLink::where('music_id', $comment->music_id)->pluck('special_id'))->decrement('comment_count');
+                } elseif ($comment->special_id > 0) {
+                	MusicSpecial::where('id', $comment->special_id)->decrement('comment_count');
+                }
+            });
+        }
+
+        return response()->json(static::createJsonData([
+            'status' => true,
+            'message' => '删除成功',
+        ]))->setStatusCode(204);
 	}
 }

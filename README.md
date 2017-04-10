@@ -31,3 +31,5 @@
 - [分享专辑](/documents/分享专辑.md)
 
 - [分享歌曲](/documents/分享歌曲.md)
+
+- [删除评论](/documents/删除评论.md)
