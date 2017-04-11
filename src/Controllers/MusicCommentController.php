@@ -129,7 +129,7 @@ class MusicCommentController extends Controller
 
 	public function delComment(Request $request, int $comment_id)
 	{
-		$uid = $Request->user()->id;
+		$uid = $request->user()->id;
         $comment = MusicComment::find($comment_id);
 
         if ($comment && $uid == $comment->user_id) {
