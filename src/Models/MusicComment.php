@@ -23,10 +23,19 @@ class MusicComment extends Model
     {
         $comment = [
             'component' => 'music',
+            'comment_table' => 'music_comments',
             'user_id' => $this->user_id,
             'to_user_id' => $this->to_user_id,
             'reply_to_user_id' => $this->reply_to_user_id,            
         ];
+
+        if ($this->music_id > 0) {
+            $comment['source_table'] = 'musics';
+            $comment['source_id'] = $this->music_id;
+        } else {
+            $comment['source_table'] = 'music_specials';
+            $comment['source_id'] = $this->special_id;
+        }
 
         DB::transaction(function () use ($comment) {
             parent::save();
