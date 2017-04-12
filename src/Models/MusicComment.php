@@ -42,7 +42,7 @@ class MusicComment extends Model
             'comment_table' => 'music_comments',
             'comment_content' => $this->comment_content,
             'user_id' => $this->user_id,
-            'to_user_id' => $this->to_user_id,
+            'to_user_id' => 0,
             'reply_to_user_id' => $this->reply_to_user_id,            
         ];
 
