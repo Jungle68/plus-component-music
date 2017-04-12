@@ -3,6 +3,7 @@
 namespace Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\Installer;
 
 use Closure;
+use Zhiyi\Plus\Models\Comment;
 use Zhiyi\Component\Installer\PlusInstallPlugin\AbstractInstaller;
 use function Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\{
     route_path,
@@ -149,6 +150,7 @@ class Installer extends AbstractInstaller
 
     public function uninstall(Closure $next)
     {
+        Comment::where('component', 'music')->delete();
         Schema::dropIfExists('musics');
         Schema::dropIfExists('music_comments');
         Schema::dropIfExists('music_specials');
