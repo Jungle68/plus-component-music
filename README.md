@@ -8,6 +8,8 @@
 
 - [专辑列表](/documents/专辑列表.md)
 
+- [我收藏的专辑列表](/documents/我收藏的专辑列表.md)
+
 - [专辑详情](/documents/专辑详情.md)
 
 - [歌曲详情](/documents/歌曲详情.md)
