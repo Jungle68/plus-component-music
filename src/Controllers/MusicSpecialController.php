@@ -19,6 +19,7 @@ class MusicSpecialController extends Controller
      */
     public function getSpecialList(Request $request)
     {
+        $uid = Auth::guard('api')->user()->id ?? 0;
         // 设置单页数量
         $limit = $request->limit ?? 15;
         $specials = MusicSpecial::orderBy('id', 'DESC')
@@ -30,6 +31,9 @@ class MusicSpecialController extends Controller
             ->with('storage')
             ->take($limit)
             ->get();
+        foreach ($specials as $special) {
+            $special->is_collection = MusicCollection::where('special_id', $special->id)->where('user_id', $uid)->get()->isEmpty() ? 0 : 1;
+        }
         return response()->json([
                 'status'  => true,
                 'code'    => 0,
@@ -59,6 +63,9 @@ class MusicSpecialController extends Controller
             ->with('storage')
             ->take($limit)
             ->get();
+        foreach ($specials as $special) {
+            $special->is_collection = MusicCollection::where('special_id', $special->id)->where('user_id', $uid)->get()->isEmpty() ? 0 : 1;
+        }
         return response()->json([
                 'status'  => true,
                 'code'    => 0,
