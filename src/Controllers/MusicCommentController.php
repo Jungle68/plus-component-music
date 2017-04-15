@@ -65,7 +65,7 @@ class MusicCommentController extends Controller
 	}
 
 	/**
-	 * 对一条动态或评论进行评论
+	 * 对一条音乐或评论进行评论
 	 * 
 	 * @author bs<414606094@qq.com>
 	 * @param  Request $request [description]
@@ -90,6 +90,14 @@ class MusicCommentController extends Controller
 	    	Music::where('id', $music->id)->increment('comment_count');//增加评论数量
 			MusicSpecial::whereIn('id', $music->speciallinks->pluck('special_id'))->increment('comment_count');//增加评论数量
     	});
+
+        if ($MusicComment->reply_to_user_id > 0 && $MusicComment->reply_to_user_id != $request->user()->id) {
+            $extras = ['action' => 'comment', 'type' => 'music', 'uid' => $request->user()->id, 'music_id' => $news_id, 'comment_id' => $MusicComment->id];
+            $alert = '有人评论了你，去看看吧';
+            $alias = $MusicComment->reply_to_user_id;
+
+            dispatch(new PushMessage($alert, (string) $alias, $extras));
+        }
 
         return response()->json(static::createJsonData([
                 'status' => true,
@@ -118,6 +126,14 @@ class MusicCommentController extends Controller
 	    	$MusicComment->save();
 	    	MusicSpecial::where('id', $special_id)->increment('comment_count');//增加评论数量
     	});
+
+        if ($MusicComment->reply_to_user_id > 0 && $MusicComment->reply_to_user_id != $request->user()->id) {
+            $extras = ['action' => 'comment', 'type' => 'music', 'uid' => $request->user()->id, 'special_id' => $news_id, 'comment_id' => $MusicComment->id];
+            $alert = '有人评论了你，去看看吧';
+            $alias = $MusicComment->reply_to_user_id;
+
+            dispatch(new PushMessage($alert, (string) $alias, $extras));
+        }
 
         return response()->json(static::createJsonData([
                 'status' => true,
