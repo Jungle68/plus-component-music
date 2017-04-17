@@ -92,7 +92,7 @@ class MusicCommentController extends Controller
     	});
 
         if ($MusicComment->reply_to_user_id > 0 && $MusicComment->reply_to_user_id != $request->user()->id) {
-            $extras = ['action' => 'comment', 'type' => 'music', 'uid' => $request->user()->id, 'music_id' => $news_id, 'comment_id' => $MusicComment->id];
+            $extras = ['action' => 'comment', 'type' => 'music', 'uid' => $request->user()->id, 'music_id' => $music_id, 'comment_id' => $MusicComment->id];
             $alert = '有人评论了你，去看看吧';
             $alias = $MusicComment->reply_to_user_id;
 
@@ -128,7 +128,7 @@ class MusicCommentController extends Controller
     	});
 
         if ($MusicComment->reply_to_user_id > 0 && $MusicComment->reply_to_user_id != $request->user()->id) {
-            $extras = ['action' => 'comment', 'type' => 'music', 'uid' => $request->user()->id, 'special_id' => $news_id, 'comment_id' => $MusicComment->id];
+            $extras = ['action' => 'comment', 'type' => 'music', 'uid' => $request->user()->id, 'special_id' => $special_id, 'comment_id' => $MusicComment->id];
             $alert = '有人评论了你，去看看吧';
             $alias = $MusicComment->reply_to_user_id;
 
