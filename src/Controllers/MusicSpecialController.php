@@ -91,7 +91,7 @@ class MusicSpecialController extends Controller
                     $query->with('cover');
                 }]);
             }]);
-        }])->first();
+        }])->with('storage')->first();
 
         $specialInfo->is_collection = MusicCollection::where('special_id', $special_id)->where('user_id', $uid)->get()->isEmpty() ? 0 : 1;
 
