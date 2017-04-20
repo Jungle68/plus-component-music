@@ -49,7 +49,7 @@ class MusicComment extends Model
         if ($this->music_id > 0) {
             $comment['source_table'] = 'musics';
             $comment['source_id'] = $this->music_id;
-            $comment['source_cover'] = $this->music->singer->cover;
+            $comment['source_cover'] = $this->music->singer()->first()->cover;
             $comment['source_content'] = $this->music->title;
         } else {
             $comment['source_table'] = 'music_specials';
