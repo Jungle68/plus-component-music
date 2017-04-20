@@ -4,6 +4,7 @@ namespace Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\Controllers;
 use DB;
 use Zhiyi\Plus\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Zhiyi\Plus\Jobs\PushMessage;
 use Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\Models\Music;
 use Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\Models\MusicSpecial;
 use Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\Models\MusicSpecialLink;
