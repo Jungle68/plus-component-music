@@ -3,7 +3,9 @@
 namespace Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\Installer;
 
 use Closure;
+use Carbon\Carbon;
 use Zhiyi\Plus\Models\Comment;
+use Zhiyi\Plus\Models\Permission;
 use Zhiyi\Component\Installer\PlusInstallPlugin\AbstractInstaller;
 use function Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\{
     route_path,
@@ -125,6 +127,32 @@ class Installer extends AbstractInstaller
             include component_base_path('/databases/table_music_singers_column.php');
         }
 
+        $time = Carbon::now();
+
+        Permission::insert([
+            [
+                'name' => 'music-comment',
+                'display_name' => '评论歌曲',
+                'description' => '用户评论歌曲权限',
+                'created_at' => $time,
+                'updated_at' => $time,
+            ],
+            [
+                'name' => 'music-digg',
+                'display_name' => '点赞歌曲',
+                'description' => '用户点赞歌曲权限',
+                'created_at' => $time,
+                'updated_at' => $time,
+            ],
+            [
+                'name' => 'music-collection',
+                'display_name' => '收藏歌曲',
+                'description' => '用户收藏歌曲权限',
+                'created_at' => $time,
+                'updated_at' => $time,
+            ],
+        ]);
+
         $next();
     }
 
@@ -151,6 +179,7 @@ class Installer extends AbstractInstaller
     public function uninstall(Closure $next)
     {
         Comment::where('component', 'music')->delete();
+        Permission::whereIn('name', ['music-comment', 'music-digg', 'music-collection'])->delete();
         Schema::dropIfExists('musics');
         Schema::dropIfExists('music_comments');
         Schema::dropIfExists('music_specials');
