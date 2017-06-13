@@ -25,6 +25,6 @@
 </head>
 <body>
     <div id="app"></div>
-    <script src="{{ \Zhiyi\Component\ZhiyiPlus\PlusComponentFeed\asset('admin.js') }}"></script>
+    <script src="{{ \Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\asset('admin.js') }}"></script>
 </body>
 </html>
