@@ -3,7 +3,7 @@
 namespace Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\Installer;
 
 use Zhiyi\Plus\Support\PackageHandler;
-use Zhiyi\Plus\Support\ServiceProvider;
+use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use function Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\base_path as component_base_path;
