@@ -2,17 +2,24 @@
 
 namespace Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\Installer;
 
+use Zhiyi\Plus\Models\Comment;
 use Zhiyi\Plus\Support\PackageHandler;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use function Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\base_path as component_base_path;
 use function Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\asset;
+use Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\Models\MusicComment;
+use Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\Observers\PlusCommentObserver;
+use Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\Observers\CommentObserver;
 
 class MusicServiceProvider extends ServiceProvider
 {
     public function boot()
     {
+        Comment::observe(PlusCommentObserver::class);
+        MusicComment::observe(CommentObserver::class);
+
  	   	$this->loadRoutesFrom(
         	component_base_path('/router.php')
     	); // 路由注入
