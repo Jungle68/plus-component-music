@@ -29,7 +29,7 @@ if (!Schema::hasColumn($component_table_name, 'music_id')) {
     });
 }
 
-if (!Schema::hasColumn($component_table_name, 'music_id')) {
+if (!Schema::hasColumn($component_table_name, 'special_id')) {
     Schema::table($component_table_name, function (Blueprint $table) {
         $table->integer('special_id')->default(0)->comment('专辑id');
     });
