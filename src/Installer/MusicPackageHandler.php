@@ -133,6 +133,6 @@ class MusicPackageHandler extends PackageHandler
             ],
         ]);
 
-        return $command->info('Channel component install successfully');
+        return $command->info('Music component install successfully');
     }
 }
