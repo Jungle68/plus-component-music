@@ -5,16 +5,22 @@ namespace Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\Installer;
 use Carbon\Carbon;
 use Zhiyi\Plus\Models\Comment;
 use Zhiyi\Plus\Models\Permission;
+use Zhiyi\Plus\Models\Storage;
+use Zhiyi\Plus\Models\File;
+use Zhiyi\Plus\Models\FileWith;
 use Illuminate\Support\Facades\Schema;
 use Zhiyi\Plus\Support\PackageHandler;
 use Illuminate\Database\Schema\Blueprint;
 use function Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\base_path as component_base_path;
+use Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\Models\Music;
+use Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\Models\MusicSinger;
+use Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\Models\MusicSpecial;
 
 class MusicPackageHandler extends PackageHandler
 {
     public function defaultHandle($command)
     {
-        $handle = $command->choice('Select handle', ['list','install', 'remove', 'quit'], 0);
+        $handle = $command->choice('Select handle', ['list','install', 'remove', 'checkstorage', 'quit'], 0);
 
         if ($handle !== 'quit') {
             return $command->call(
@@ -134,5 +140,54 @@ class MusicPackageHandler extends PackageHandler
         ]);
 
         return $command->info('Music component install successfully');
+    }
+
+    public function checkstorageHandle($command)
+    {
+        if ($command->confirm('This will change your datas with new storages')) {
+            $musics = Music::get();
+            foreach ($musics as $music) {
+                $music->storage = $this->checkFileId($music->storage, 'music:storage', $music->id, 1);
+                $music->save();
+
+                $music->singer->cover =  $this->checkFileId($music->singer->cover, 'music:singer:cover', $music->singer->id, 1);
+                $music->singer->save();
+            } // 迁移音乐相关
+
+            $specials = MusicSpecial::get();
+            foreach ($specials as $special) {
+                $special->storage = $this->checkFileId($special->storage, 'music:special:storage', $special->id, 1);
+                $special->save();
+            }
+        }
+    }
+
+    protected function checkFileId($storage_id, $channel, $data_id, $user_id = 1)
+    {
+        $info = Storage::where('id', $storage_id)->first(); // 附件迁移
+        $hasMove = FileWith::where('id', $storage_id)->first();  // 已经迁移的不再处理
+        if ($info && (!$hasMove)) {
+            if (!$file = File::where('hash', $info->hash)->first()) {
+                $file = new File();
+                $file->hash = $info->hash;
+                $file->origin_filename = $info->origin_filename;
+                $file->filename = $info->filename;
+                $file->mime = $info->mime;
+                $file->width = $info->image_width;
+                $file->height = $info->image_height;
+                $file->save();
+            }
+
+            $filewith = new FileWith();
+            $filewith->file_id = $file->id;
+            $filewith->user_id = $user_id;
+            $filewith->channel = $channel;
+            $filewith->raw = $data_id;
+            $filewith->size = ($size = sprintf('%sx%s', $file->width, $file->height)) === 'x' ? null : $size;
+
+            return $filewith->id; // 迁移生成成功 返回filewithid
+        }
+
+        return $storage_id; // 查找失败暂时原样返回
     }
 }

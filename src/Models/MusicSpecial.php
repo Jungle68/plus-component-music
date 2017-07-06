@@ -2,7 +2,7 @@
 
 namespace Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\Models;
 
-use Zhiyi\Plus\Models\Storage;
+use Zhiyi\Plus\Models\Filewith;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,6 +17,6 @@ class MusicSpecial extends Model
 
     public function storage()
     {
-    	return $this->hasOne(Storage::class, 'id', 'storage')->select('id','image_width','image_height');
+    	return $this->hasOne(Filewith::class, 'id', 'storage')->select('id','size');
     }
 }
