@@ -169,7 +169,7 @@ class MusicPackageHandler extends PackageHandler
         $info = Storage::where('id', $storage_id)->first(); // 附件迁移
         $hasMove = FileWith::where('id', $storage_id)->first();  // 已经迁移的不再处理
         if ($info && (!$hasMove)) {
-            $file = File::where('hash', $info->hash)->first()
+            $file = File::where('hash', $info->hash)->first();
             if (!$file) {
                 $file = new File();
                 $file->hash = $info->hash;
