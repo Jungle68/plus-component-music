@@ -150,8 +150,9 @@ class MusicPackageHandler extends PackageHandler
                 $music->storage = $this->checkFileId($music->storage, 'music:storage', $music->id, 1);
                 $music->save();
 
-                $music->singer->cover =  $this->checkFileId($music->singer->cover, 'music:singer:cover', $music->singer->id, 1);
-                $music->singer->save();
+                $singer = $music->singer()->first();
+                $singer->cover =  $this->checkFileId($singer->cover, 'music:singer:cover', $singer->id, 1);
+                $singer->save();
             } // 迁移音乐相关
 
             $specials = MusicSpecial::get();
