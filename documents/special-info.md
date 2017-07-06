@@ -51,8 +51,7 @@ GET
             "name": "汤圆毛",
             "cover": {
               "id": 2,
-              "image_width": 3264,
-              "image_height": 2448
+              "size": '3264x2448'
             }
           },
           "storage": 129,
@@ -83,8 +82,7 @@ GET
             "name": "刘zz",
             "cover": {
               "id": 54,
-              "image_width": 690,
-              "image_height": 932
+              "size": '690x932'
             }
           },
           "storage": 130,

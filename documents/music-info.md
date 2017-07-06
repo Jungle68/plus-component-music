@@ -32,8 +32,7 @@ GET
       "name": "汤圆毛",
       "cover": {
         "id": 2,
-        "image_width": 3264,
-        "image_height": 2448
+        "size": '3264x2448'
       }
     },
     "storage": 129,
