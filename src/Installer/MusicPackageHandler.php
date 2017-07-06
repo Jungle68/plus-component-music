@@ -188,6 +188,7 @@ class MusicPackageHandler extends PackageHandler
             $filewith->channel = $channel;
             $filewith->raw = $data_id;
             $filewith->size = ($size = sprintf('%sx%s', $file->width, $file->height)) === 'x' ? null : $size;
+            $fileWith->save();
 
             return $filewith->id; // 迁移生成成功 返回filewithid
         }
