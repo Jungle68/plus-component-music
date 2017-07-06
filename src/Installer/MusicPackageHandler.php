@@ -168,7 +168,7 @@ class MusicPackageHandler extends PackageHandler
     protected function checkFileId($storage_id, $channel, $data_id, $user_id = 1)
     {
         $info = Storage::where('id', $storage_id)->first(); // 附件迁移
-        $hasMove = FileWith::where('id', $storage_id)->first();  // 已经迁移的不再处理
+        $hasMove = FileWith::where('id', $storage_id)->where('channel', $channel)->where('raw', $data_id)->first();  // 已经迁移的不再处理
         if ($info && (!$hasMove)) {
             $file = File::where('hash', $info->hash)->first();
             if (!$file) {
