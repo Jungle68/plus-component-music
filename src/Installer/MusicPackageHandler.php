@@ -160,6 +160,8 @@ class MusicPackageHandler extends PackageHandler
                 $special->save();
             }
         }
+
+        $command->info('have done');
     }
 
     protected function checkFileId($storage_id, $channel, $data_id, $user_id = 1)
@@ -167,7 +169,8 @@ class MusicPackageHandler extends PackageHandler
         $info = Storage::where('id', $storage_id)->first(); // 附件迁移
         $hasMove = FileWith::where('id', $storage_id)->first();  // 已经迁移的不再处理
         if ($info && (!$hasMove)) {
-            if (!$file = File::where('hash', $info->hash)->first()) {
+            $file = File::where('hash', $info->hash)->first()
+            if (!$file) {
                 $file = new File();
                 $file->hash = $info->hash;
                 $file->origin_filename = $info->origin_filename;
