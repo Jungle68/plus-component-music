@@ -183,7 +183,7 @@ class MusicPackageHandler extends PackageHandler
             }
             if (!$file->id) {
                 
-                return $file->id;
+                return $storage_id;
             }
             $filewith = new FileWith();
             $filewith->file_id = $file->id;
