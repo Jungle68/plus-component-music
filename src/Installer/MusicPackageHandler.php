@@ -181,7 +181,10 @@ class MusicPackageHandler extends PackageHandler
                 $file->height = $info->image_height;
                 $file->save();
             }
-
+            if (!$file->id) {
+                
+                return $file->id;
+            }
             $filewith = new FileWith();
             $filewith->file_id = $file->id;
             $filewith->user_id = $user_id;
