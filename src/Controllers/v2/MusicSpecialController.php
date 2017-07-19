@@ -6,9 +6,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Zhiyi\Plus\Http\Controllers\Controller;
 use Illuminate\Contracts\Routing\ResponseFactory;
+use Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\Models\Music;
+use Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\Models\MusicDigg;
 use Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\Models\MusicSpecial;
 use Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\Models\MusicCollection;
-use Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\Models\MusicDigg;
+
 
 class MusicSpecialController extends Controller
 {
@@ -41,5 +43,45 @@ class MusicSpecialController extends Controller
         });
 
         return $response->json($specials)->setStatusCode(200);
+    }
+
+    /**
+     * 专辑详情
+     *
+     * @author bs<414606094@qq.com>
+     * @param  Request         $request 
+     * @param  MusicSpecial    $special 
+     * @param  ResponseFactory $response 
+     * @return mix                    
+     */
+    public function show(Request $request, MusicSpecial $special, ResponseFactory $response)
+    {
+        $uid = $request->user('api')->id ?? 0;
+
+        if ($special->paidNode !== null && $special->paidNode->paid($uid) === false) {
+            return response()->json([
+                'message' => ['请购买专辑'],
+                'paid_node' => $special->paidNode->id,
+                'amount' => $special->paidNode->amount,
+            ])->setStatusCode(403);
+        }
+
+        $special->load(['musics' => function($query) {
+            $query->with(['singer' => function ($query) {
+                    $query->with('cover');
+            }])->orderBy('id', 'desc');
+        }, 'storage']);
+
+        $special->has_collect = $special->hasCollected($uid);
+        $special->musics->map(function ($music) use ($uid) {
+        	$music = $music->formatStorage($uid);
+        });
+
+        return response()->json([
+                'status'  => true,
+                'code'    => 0,
+                'message' => '获取成功',
+                'data' => $special
+        ])->setStatusCode(200);
     }
 }

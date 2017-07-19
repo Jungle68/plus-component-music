@@ -22,9 +22,12 @@ class Music extends Model
     	return $this->hasMany(MusicSpecialLink::class, 'music_id', 'id');
     }
 
-    public function formatStorage(int $storage)
+    public function formatStorage(int $user)
     {
-    	$storage = FileWith::with('paidNode')->find($storage);
+    	$storage = FileWith::with('paidNode')->find($this->storage);
+    	if (!$storage) {
+    		return null;
+    	}
 
     	$file['id'] = $storage->id;
     	if ($storage->paidNode !== null) {
