@@ -1,0 +1,45 @@
+<?php
+
+namespace Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\Controllers\V2;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Zhiyi\Plus\Http\Controllers\Controller;
+use Illuminate\Contracts\Routing\ResponseFactory;
+use Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\Models\MusicSpecial;
+use Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\Models\MusicCollection;
+use Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\Models\MusicDigg;
+
+class MusicSpecialController extends Controller
+{
+    /**
+     * 获取专辑列表
+     *  
+     * @author bs<414606094@qq.com>
+     * @return [type] [description]
+     */
+    public function list(Request $request, MusicSpecial $specialModel, ResponseFactory $response)
+    {
+        $uid = $request->user('api')->id ?? 0;
+        // 设置单页数量
+        $limit = $request->limit ?? 15;
+        $specials = $specialModel->orderBy('id', 'DESC')
+            ->where(function($query) use ($request) {
+                if($request->max_id > 0){
+                    $query->where('id', '<', $request->max_id);
+                }
+            })
+            ->with(['storage','paidNode'])
+            ->take($limit)
+            ->get();
+
+        $specials = $specialModel->getConnection()->transaction(function () use ($specials, $uid) {
+        	return $specials->map(function ($special) use ($uid) {
+        		$special->has_collect = $special->hasCollected($uid);
+        		return $special;
+        	});
+        });
+
+        return $response->json($specials)->setStatusCode(200);
+    }
+}

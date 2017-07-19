@@ -52,11 +52,12 @@ class MusicSpecial extends Model
     public function hasCollected(int $user): bool
     {
         $cacheKey = sprintf('music-special-collected:%s,%s', $this->id, $user);
+
         if (Cache::has($cacheKey)) {
             return Cache::get($cacheKey);
         }
 
-        $status = $this->collections()->newPivotStatementForId($user)->first() !== null;
+        $status = $this->collections()->where('user_id', $user)->first() !== null;
         Cache::forever($cacheKey, $status);
 
         return $status;
