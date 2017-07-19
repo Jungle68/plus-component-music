@@ -15,3 +15,8 @@ Route::prefix('api/v1')
     ->middleware('api')
     ->namespace('Zhiyi\\Component\\ZhiyiPlus\\PlusComponentMusic\\Controllers')
     ->group(component_base_path('/routes/api.php'));
+
+Route::prefix('api/v2')
+    ->middleware('api')
+    ->namespace('Zhiyi\\Component\\ZhiyiPlus\\PlusComponentMusic\\Controllers\\V2')
+    ->group(component_base_path('/routes/api_v2.php'));
