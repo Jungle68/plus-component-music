@@ -77,11 +77,6 @@ class MusicSpecialController extends Controller
         	$music = $music->formatStorage($uid);
         });
 
-        return response()->json([
-                'status'  => true,
-                'code'    => 0,
-                'message' => '获取成功',
-                'data' => $special
-        ])->setStatusCode(200);
+        return $response->json($special)->setStatusCode(200);
     }
 }
