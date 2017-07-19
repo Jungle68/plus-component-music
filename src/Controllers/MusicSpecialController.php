@@ -100,8 +100,8 @@ class MusicSpecialController extends Controller
                 'message' => '专辑不存在或已被删除'
             ])->setStatusCode(404); 
         }
-        foreach ($specialInfo->musics as $key) {
-            $key->musicInfo->isdiggmusic = MusicDigg::where(['user_id' => $uid, 'music_id' => $key->id])->first() ? 1 : 0;
+        foreach ($specialInfo->musics as $music) {
+            $music->isdiggmusic = MusicDigg::where(['user_id' => $uid, 'music_id' => $music->id])->first() ? 1 : 0;
         }
 
         return response()->json([
