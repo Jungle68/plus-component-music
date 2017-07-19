@@ -14,7 +14,7 @@ class MusicSpecial extends Model
 
     public function musics()
     {
-        return $this->hasMany(MusicSpecialLink::class, 'special_id', 'id');
+        return $this->belongsToMany(Music::class, 'music_special_links', 'special_id', 'id');
     }
 
     public function storage()

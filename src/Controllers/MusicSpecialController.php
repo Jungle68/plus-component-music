@@ -86,10 +86,8 @@ class MusicSpecialController extends Controller
     {
         $uid = Auth::guard('api')->user()->id ?? 0;
         $specialInfo = MusicSpecial::where('id', $special_id)->with(['musics' => function($query) {
-            $query->with(['musicInfo' => function($query) {
-                $query->with(['singer' => function ($query) {
-                    $query->with('cover');
-                }]);
+            $query->with(['singer' => function ($query) {
+                $query->with('cover');
             }])->orderBy('id', 'desc');
         }])->with('storage')->first();
 
