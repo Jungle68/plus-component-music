@@ -6,7 +6,7 @@
 
 ## 接口目录
 
-- [v2接口](/dociments/v2/)
+[v2接口](/documents/v2/)
 
 - [专辑列表](/documents/specials.md)
 
