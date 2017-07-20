@@ -7,8 +7,10 @@ use Zhiyi\Plus\Support\PackageHandler;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use function Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\base_path as component_base_path;
 use function Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\asset;
+use Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\Models\Music;
 use Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\Models\MusicComment;
 use Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\Observers\PlusCommentObserver;
 use Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\Observers\CommentObserver;
@@ -33,6 +35,8 @@ class MusicServiceProvider extends ServiceProvider
 
     public function register()
     {
-        // TODO
+        Relation::morphMap([
+            'music' => Music::class,
+        ]);
     }
 }

@@ -17,25 +17,17 @@ class MusicDiggController extends Controller
 	 * @param  int     $Music_id [description]
 	 * @return [type]           [description]
 	 */
-	public function diggMusic(Request $request, int $music_id)
+	public function diggMusic(Request $request, Music $music)
 	{
-		$music = Music::find($music_id);
-		if (!$music) {
-            return response()->json(static::createJsonData([
-                'code' => 8002,
-            ]))->setStatusCode(404);
-		}
-		$musicdigg['user_id'] = $request->user()->id;
-		$musicdigg['music_id'] = $music_id;
-		if (MusicDigg::where($musicdigg)->first()) {
+        $user = $request->user();
+		if ($music->liked($user)) {
             return response()->json(static::createJsonData([
             	'code' => 8003,
                 'status' => false,
                 'message' => '已赞过该歌曲',
-            ]))->setStatusCode(400);
+            ]))->setStatusCode(422);
 		}
-		
-		MusicDigg::create($musicdigg);
+        $like = $music->like($user);
 
         return response()->json(static::createJsonData([
             'status' => true,
@@ -47,21 +39,14 @@ class MusicDiggController extends Controller
 	 * 取消点赞一个动态
 	 * 
 	 * @author bs<414606094@qq.com>
-	 * @param  Request $request [description]
-	 * @param  int     $Music_id [description]
-	 * @return [type]           [description]
+	 * @param  Request $request 
+	 * @param  Music   $Music
+	 * @return [type]          
 	 */
-	public function cancelDiggMusic(Request $request, int $music_id)
+	public function cancelDiggMusic(Request $request, Music $music)
 	{
-		$music = Music::find($music_id);
-		if (!$music) {
-            return response()->json(static::createJsonData([
-                'code' => 8002,
-            ]))->setStatusCode(404);
-		}
-		$musicdigg['user_id'] = $request->user()->id;
-		$musicdigg['music_id'] = $music_id;
-		if (!MusicDigg::where($musicdigg)->first()) {
+		$user = $request->user();
+		if (!$music->liked($user)) {
             return response()->json(static::createJsonData([
             	'code' => 8004,
                 'status' => false,
@@ -69,7 +54,7 @@ class MusicDiggController extends Controller
             ]))->setStatusCode(400);
 		}
 
-		MusicDigg::where($musicdigg)->delete();
+		$music->unlike($user);
 		
         return response()->json(static::createJsonData([
             'status' => true,

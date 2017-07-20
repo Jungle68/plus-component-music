@@ -3,11 +3,14 @@
 namespace Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\Models;
 
 use Zhiyi\Plus\Models\FileWith;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 class Music extends Model
 {
+    use Relations\MusicHasLike;
+
 	protected $hidden = ['pivot'];
 
     protected $table = 'musics';

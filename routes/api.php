@@ -33,10 +33,10 @@ Route::group([
 	//删除评论 TODO 根据权限及实际需求增加中间件
 	Route::delete('/music/comment/{comment_id}', 'MusicCommentController@delComment');
 	// 点赞
-	Route::post('/music/{music_id}/digg', 'MusicDiggController@diggMusic')
+	Route::post('/music/{music}/digg', 'MusicDiggController@diggMusic')
 		->middleware('role-permissions:music-digg,你没有点赞歌曲的权限');
 	// 取消点赞
-	Route::delete('/music/{music_id}/digg', 'MusicDiggController@cancelDiggMusic');
+	Route::delete('/music/{music}/digg', 'MusicDiggController@cancelDiggMusic');
 	// 我的收藏列表
 	Route::get('/music/special/collections', 'MusicSpecialController@getCollectionSpecialList');
 	// 收藏
