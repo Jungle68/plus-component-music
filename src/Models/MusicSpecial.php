@@ -42,6 +42,21 @@ class MusicSpecial extends Model
         return $this->hasOne(PaidNode::class, 'raw', 'id')->where('channel', 'music');
     }
 
+    public function formatPaidNode(int $user)
+    {
+        if ($this->paidNode !== null) {
+            $paidNode = [
+                'paid' => $this->paidNode->paid($user),
+                'node' => $this->paidNode->id,
+                'amount' => $this->paidNode->amount,
+            ];
+            unset($this->paidNode);
+            $this->paid_node = $paidNode;
+        }
+
+        return $this;
+    }
+
     /**
      * 验证某个用户是否收藏了某个专辑  
      *

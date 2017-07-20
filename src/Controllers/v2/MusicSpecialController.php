@@ -38,6 +38,7 @@ class MusicSpecialController extends Controller
         $specials = $specialModel->getConnection()->transaction(function () use ($specials, $uid) {
         	return $specials->map(function ($special) use ($uid) {
         		$special->has_collect = $special->hasCollected($uid);
+                $special = $special->formatPaidNode($uid);
         		return $special;
         	});
         });
@@ -72,6 +73,7 @@ class MusicSpecialController extends Controller
             }])->orderBy('id', 'desc');
         }, 'storage']);
 
+        $special = $special->formatPaidNode($uid);
         $special->has_collect = $special->hasCollected($uid);
         $special->musics->map(function ($music) use ($uid) {
         	$music->has_like = $music->liked($uid);

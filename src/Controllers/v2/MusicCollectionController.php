@@ -24,6 +24,12 @@ class MusicCollectionController extends Controller
         ->with(['storage', 'paidNode'])
         ->select('music_specials.*')->limit($limit)->get();
 
+        $specials = $musicSpecialModel->getConnection()->transaction(function () use ($specials, $user) {
+            return $specials->map(function ($special) use ($user) {
+                return $special->formatPaidNode($user->id);
+            });
+        });
+
         return response()->json($specials, 200);
     }
 }

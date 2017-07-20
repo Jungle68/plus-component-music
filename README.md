@@ -6,6 +6,8 @@
 
 ## 接口目录
 
+- [v2接口](/dociments/v2/)
+
 - [专辑列表](/documents/specials.md)
 
 - [我收藏的专辑列表](/documents/my-collection-specials.md)
