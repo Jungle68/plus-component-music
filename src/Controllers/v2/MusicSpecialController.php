@@ -74,6 +74,7 @@ class MusicSpecialController extends Controller
 
         $special->has_collect = $special->hasCollected($uid);
         $special->musics->map(function ($music) use ($uid) {
+        	$music->has_like = $music->liked($uid);
         	$music = $music->formatStorage($uid);
         });
 

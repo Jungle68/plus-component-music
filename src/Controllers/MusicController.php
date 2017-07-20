@@ -26,7 +26,7 @@ class MusicController extends Controller
             ])->setStatusCode(404); 
         }
 
-        $musicInfo->isdiggmusic = MusicDigg::where(['user_id' => $uid, 'music_id' => $music_id])->first() ? 1 : 0;
+        $musicInfo->isdiggmusic = $musicInfo->liked($uid) ? 1 : 0;
 
         Music::where('id', $music_id)->increment('taste_count'); // 歌曲增加播放数量
         MusicSpecial::whereIn('id', MusicSpecialLink::where('music_id', $music_id)->pluck('special_id'))->increment('taste_count'); // 相应专辑增加播放数量
