@@ -11,16 +11,14 @@ use Illuminate\Database\Eloquent\Relations\Relation;
 use function Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\base_path as component_base_path;
 use function Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\asset;
 use Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\Models\Music;
-use Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\Models\MusicComment;
-use Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\Observers\PlusCommentObserver;
-use Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\Observers\CommentObserver;
+use Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\Models\MusicSpecial;
 
 class MusicServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-        Comment::observe(PlusCommentObserver::class);
-        MusicComment::observe(CommentObserver::class);
+        // Comment::observe(PlusCommentObserver::class);
+        // MusicComment::observe(CommentObserver::class);
 
  	   	$this->loadRoutesFrom(
         	component_base_path('/router.php')
@@ -36,7 +34,8 @@ class MusicServiceProvider extends ServiceProvider
     public function register()
     {
         Relation::morphMap([
-            'music' => Music::class,
+            'musics' => Music::class,
+            'music_specials' => MusicSpecial::class
         ]);
     }
 }

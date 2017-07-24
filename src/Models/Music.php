@@ -2,6 +2,7 @@
 
 namespace Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\Models;
 
+use Zhiyi\Plus\Models\Comment;
 use Zhiyi\Plus\Models\FileWith;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Builder;
@@ -23,6 +24,16 @@ class Music extends Model
     public function speciallinks()
     {
     	return $this->hasMany(MusicSpecialLink::class, 'music_id', 'id');
+    }
+
+    public function musicSpecials()
+    {
+        return $this->belongsToMany(MusicSpecial::class, 'music_special_links', 'music_id', 'special_id')->withTimestamps();
+    }
+
+    public function comments()
+    {
+        return $this->morphMany(Comment::class, 'commentable');
     }
 
     public function formatStorage(int $user)

@@ -2,6 +2,7 @@
 
 namespace Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\Models;
 
+use Zhiyi\Plus\Models\Comment;
 use Zhiyi\Plus\Models\PaidNode;
 use Zhiyi\Plus\Models\FileWith;
 use Illuminate\Support\Facades\Cache;
@@ -10,6 +11,8 @@ use Illuminate\Database\Eloquent\Builder;
 
 class MusicSpecial extends Model
 {
+    protected $hidden = ['pivot'];
+    
     protected $table = 'music_specials';
 
     public function musics()
@@ -20,6 +23,11 @@ class MusicSpecial extends Model
     public function storage()
     {
     	return $this->hasOne(FileWith::class, 'id', 'storage')->select('id','size');
+    }
+
+    public function comments()
+    {
+        return $this->morphMany(Comment::class, 'commentable');
     }
 
     /**

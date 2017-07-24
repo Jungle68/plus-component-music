@@ -72,7 +72,6 @@ class MusicPackageHandler extends PackageHandler
             Schema::create('music_special_links', function (Blueprint $table) {
                 $table->engine = 'InnoDB';
                 $table->increments('id')->comment('主键');
-                $table->timestamps();
             });
             include component_base_path('/databases/table_music_special_links_column.php');
         }
