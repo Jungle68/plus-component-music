@@ -4,16 +4,16 @@
 
 > 如v1接口中已有相同功能接口，v1版本接口将被废弃，其余v1接口已做升级兼容，可以正常使用
 
-- [专辑列表](/specials.md)
+- [专辑列表](/documents/v2/specials.md)
 
-- [我收藏的专辑列表](/collections.md)
+- [我收藏的专辑列表](/documents/v2/collections.md)
 
-- [专辑详情](/speical-show.md)
+- [专辑详情](/documents/v2/speical-show.md)
 
-- [音乐详情](/music-show.md)
+- [音乐详情](/documents/v2/music-show.md)
 
-- [评论列表](/comments.md)
+- [评论列表](/documents/v2/comments.md)
 
-- [添加评论](/addComments.md)
+- [添加评论](/documents/v2/addComments.md)
 
-- [删除评论](/delComments.md)
+- [删除评论](/documents/v2/delComments.md)
