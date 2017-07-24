@@ -11,3 +11,9 @@
 - [专辑详情](/speical-show.md)
 
 - [音乐详情](/music-show.md)
+
+- [评论列表](/comments.md)
+
+- [添加评论](/addComments.md)
+
+- [删除评论](/delComments.md)
