@@ -50,9 +50,9 @@ class MusicCommentController extends Controller
     	$limit = $request->input('limit', 15);
     	$comments = $music->comments()->when($max_id, function ($query) use ($max_id) {
     		return $query->where('id', '<', $max_id);
-    	})->limit($limit)->get();
+    	})->limit($limit)->orderBy('id', 'desc')->get();
 
-    	return response()->orderBy('id', 'desc')->json($comments, 200);
+    	return response()->json($comments, 200);
     }
 
     public function delete(Request $request, Music $music, Comment $comment)
