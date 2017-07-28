@@ -8,7 +8,7 @@
 
 - [我收藏的专辑列表](/documents/v2/collections.md)
 
-- [专辑详情](/documents/v2/speical-show.md)
+- [专辑详情](/documents/v2/special-show.md)
 
 - [音乐详情](/documents/v2/music-show.md)
 
