@@ -47,7 +47,9 @@ Status: 201 OK
                     "size": "370x370"
                 }
             },
-            "storage": 113,
+            "storage": {
+                "id": 112
+            },
             "last_time": 300,
             "lyric": null,
             "taste_count": 0,
@@ -71,7 +73,13 @@ Status: 201 OK
                     "size": "370x370"
                 }
             },
-            "storage": 109,
+            "storage": { // 音乐付费时
+                "id": 133,
+                "amount": "200",
+                "type": "download",
+                "paid": "false",
+                "paid_node": "12" 
+            },
             "last_time": 200,
             "lyric": null,
             "taste_count": 297,

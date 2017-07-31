@@ -40,7 +40,9 @@ class Music extends Model
     {
     	$storage = FileWith::with('paidNode')->find($this->storage);
     	if (!$storage) {
-    		return null;
+            $this->storage = null;
+
+    		return $this;
     	}
 
     	$file['id'] = $storage->id;
@@ -50,7 +52,6 @@ class Music extends Model
             $file['paid'] = $storage->paidNode->paid($user);
             $file['paid_node'] = $storage->paidNode->id;
     	}
-
     	$this->storage = $file;
 
     	return $this;
