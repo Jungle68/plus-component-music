@@ -1,4 +1,4 @@
-# 获取用户收藏的动态
+# 获取用户收藏的专辑
 
 ```
 GET /music/collections
