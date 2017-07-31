@@ -42,11 +42,12 @@ Status: 201 OK
                 "created_at": "2017-03-16 17:22:18",
                 "updated_at": "2017-03-16 17:22:20",
                 "name": "佚名",
-                "cover": null
+                "cover": {
+                    "id": 1,
+                    "size": "370x370"
+                }
             },
-            "storage": {
-                "id": 113
-            },
+            "storage": 113,
             "last_time": 300,
             "lyric": null,
             "taste_count": 0,
@@ -65,11 +66,12 @@ Status: 201 OK
                 "created_at": "2017-03-16 17:22:04",
                 "updated_at": "2017-03-16 17:22:08",
                 "name": "群星",
-                "cover": null
+                "cover": {
+                    "id": 1,
+                    "size": "370x370"
+                }
             },
-            "storage": {
-                "id": 109
-            },
+            "storage": 109,
             "last_time": 200,
             "lyric": null,
             "taste_count": 297,
