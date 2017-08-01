@@ -1,4 +1,10 @@
-# 获取用户收藏的专辑
+# 收藏
+
+- [收藏列表](#获取用户收藏的专辑)
+- [添加收藏](#收藏专辑)
+- [取消收藏](#取消收藏)
+
+## 获取用户收藏的专辑
 
 ```
 GET /music/collections
@@ -7,7 +13,7 @@ GET /music/collections
 #### Response
 
 ```
-Status: 201 OK
+Status: 200 OK
 ```
 ```json5
 [
@@ -41,3 +47,34 @@ Status: 201 OK
 | limit | Integer | 可选，默认值 20 ，获取条数 |
 | max_id | Integer | 可选，上次获取到数据最后一条 ID，用于获取该 ID 之后的数据。 |
 
+## 收藏专辑
+
+```
+POST /music/specials/{special}/collection
+```
+
+### Response
+
+```
+Status: 201 Created
+```
+
+```json5
+{
+    "message": [
+        "收藏成功"
+    ]
+}
+```
+
+## 取消收藏
+
+```
+DELETE /music/specials/{special}/collection
+```
+
+### Response
+
+```
+Status: 204 No Content
+```

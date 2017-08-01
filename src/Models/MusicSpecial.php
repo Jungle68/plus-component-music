@@ -50,6 +50,13 @@ class MusicSpecial extends Model
         return $this->hasOne(PaidNode::class, 'raw', 'id')->where('channel', 'music');
     }
 
+    /**
+     * 处理付费节点信息
+     *
+     * @author bs<414606094@qq.com>
+     * @param  int    $user [description]
+     * @return mix
+     */
     public function formatPaidNode(int $user)
     {
         if ($this->paidNode !== null) {

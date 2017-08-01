@@ -10,7 +10,7 @@ Route::get('/music/specials/{special}', 'MusicSpecialController@show');
 Route::get('/music/{music}', 'MusicController@show')->where(['music' => '[0-9]+']);
 
 
-// 我收藏的专辑列表
+// 需认证接口
 Route::middleware('auth:api')->group(function () {
 	
 	// 用户收藏列表
@@ -32,5 +32,17 @@ Route::middleware('auth:api')->group(function () {
 	Route::delete('/music/{music}/comments/{comment}', 'MusicCommentController@delete');
 
 	// 删除专辑评论
-	Route::delete('/music/specials/{special}/comments/{comment}', 'MusicCommentController@specialDelete');	
+	Route::delete('/music/specials/{special}/comments/{comment}', 'MusicCommentController@specialDelete');
+
+	// 点赞音乐
+	Route::post('/music/{music}/like', 'MusicLikeController@like');
+
+	// 取消点赞音乐
+	Route::delete('/music/{music}/like', 'MusicLikeController@cancel');
+
+	// 收藏专辑
+	Route::post('/music/specials/{special}/collection', 'MusicCollectionController@store');
+
+	// 取消收藏
+	Route::delete('/music/specials/{special}/collection', 'MusicCollectionController@delete');
 });

@@ -4,10 +4,9 @@ namespace Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\Controllers\V2;
 
 use DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Zhiyi\Plus\Http\Controllers\Controller;
-use Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\Models\Music;
 use Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\Models\MusicSpecial;
-use Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\Models\MusicCollection;
 
 class MusicCollectionController extends Controller
 {
@@ -31,5 +30,47 @@ class MusicCollectionController extends Controller
         });
 
         return response()->json($specials, 200);
+    }
+
+    public function store(Request $request, MusicSpecial $special)
+    {
+        $user = $request->user()->id;
+        if ($special->hasCollected($user)) {
+            return response()->json([
+                'message' => ['已收藏该专辑'],
+            ])->setStatusCode(400);
+        }
+       
+        DB::transaction(function() use ($special, $user) {
+            $special->collections()->create(['user_id' => $user]);
+            $special->increment('collect_count');
+        });
+
+        $cacheKey = sprintf('music-special-collected:%s,%s', $special->id, $user);
+        Cache::forget($cacheKey);
+
+        return response()->json([
+            'message' => ['收藏成功'],
+        ])->setStatusCode(201);
+    }
+
+    public function delete(Request $request, MusicSpecial $special)
+    {
+        $user = $request->user()->id;
+        if (!$special->hasCollected($user)) {
+            return response()->json([
+                'message' => ['未收藏该专辑'],
+            ])->setStatusCode(400);
+        }
+
+        DB::transaction(function() use ($user, $special) {
+            $special->collections()->delete();
+            $special->decrement('collect_count');
+        });
+        
+        $cacheKey = sprintf('music-special-collected:%s,%s', $special->id, $user);
+        Cache::forget($cacheKey);
+        
+        return response()->json()->setStatusCode(204);
     }
 }

@@ -6,7 +6,9 @@
 
 - [专辑列表](/documents/v2/specials.md)
 
-- [我收藏的专辑列表](/documents/v2/collections.md)
+- [收藏](/documents/v2/collections.md)
+
+- [点赞](/documents/v2/like.md)
 
 - [专辑详情](/documents/v2/special-show.md)
 
