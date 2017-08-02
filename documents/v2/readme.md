@@ -14,8 +14,4 @@
 
 - [音乐详情](/documents/v2/music-show.md)
 
-- [评论列表](/documents/v2/comments.md)
-
-- [添加评论](/documents/v2/addComments.md)
-
-- [删除评论](/documents/v2/delComments.md)
+- [评论](/documents/v2/comments.md)
