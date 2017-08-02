@@ -10,6 +10,14 @@ use Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\Models\MusicSpecial;
 
 class MusicCollectionController extends Controller
 {
+    /**
+     * 用户收藏列表.
+     *
+     * @author bs<414606094@qq.com>
+     * @param  Request      $request
+     * @param  MusicSpecial $musicSpecialModel
+     * @return json
+     */
     public function list(Request $request, MusicSpecial $musicSpecialModel)
     {
         $limit = $request->input('limit', 20);
@@ -32,6 +40,14 @@ class MusicCollectionController extends Controller
         return response()->json($specials, 200);
     }
 
+    /**
+     * 收藏专辑.
+     *
+     * @author bs<414606094@qq.com>
+     * @param  Request      $request
+     * @param  MusicSpecial $special
+     * @return json
+     */
     public function store(Request $request, MusicSpecial $special)
     {
         $user = $request->user()->id;
@@ -54,6 +70,14 @@ class MusicCollectionController extends Controller
         ])->setStatusCode(201);
     }
 
+    /**
+     * 取消收藏专辑.
+     *
+     * @author bs<414606094@qq.com>
+     * @param  Request      $request
+     * @param  MusicSpecial $special
+     * @return json
+     */
     public function delete(Request $request, MusicSpecial $special)
     {
         $user = $request->user()->id;

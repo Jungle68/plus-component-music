@@ -11,6 +11,15 @@ use Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\Models\MusicSpecial;
 
 class MusicCommentController extends Controller
 {
+    /**
+     * 添加音乐评论.
+     *
+     * @author bs<414606094@qq.com>
+     * @param  Request $request
+     * @param  Music   $music
+     * @param  Comment $comment
+     * @return json
+     */
     public function store(Request $request, Music $music, Comment $comment)
     {
         $replyUser = intval($request->input('reply_user', 0));
@@ -44,6 +53,14 @@ class MusicCommentController extends Controller
     	])->setStatusCode(201);
     }
 
+    /**
+     * 音乐评论列表.
+     *
+     * @author bs<414606094@qq.com>
+     * @param  Request $request
+     * @param  Music   $music
+     * @return json
+     */
     public function list(Request $request, Music $music)
     {
     	$max_id = $request->input('max_id');
@@ -55,6 +72,15 @@ class MusicCommentController extends Controller
     	return response()->json($comments, 200);
     }
 
+    /**
+     * 删除音乐评论.
+     *
+     * @author bs<414606094@qq.com>
+     * @param  Request $request
+     * @param  Music   $music
+     * @param  Comment $comment
+     * @return json
+     */
     public function delete(Request $request, Music $music, Comment $comment)
     {
         $user = $request->user();
@@ -72,6 +98,15 @@ class MusicCommentController extends Controller
         return response()->json()->setStatusCode(204);
     }
 
+    /**
+     * 删除专辑评论.
+     *
+     * @author bs<414606094@qq.com>
+     * @param  Request      $request
+     * @param  MusicSpecial $special
+     * @param  Comment      $comment
+     * @return json
+     */
     public function specialDelete(Request $request, MusicSpecial $special, Comment $comment)
     {
         $user = $request->user();
@@ -88,6 +123,14 @@ class MusicCommentController extends Controller
         return response()->json()->setStatusCode(204);
     }
 
+    /**
+     * 专辑评论列表.
+     *
+     * @author bs<414606094@qq.com>
+     * @param  Request      $request
+     * @param  MusicSpecial $special
+     * @return json
+     */
     public function specialList(Request $request, MusicSpecial $special)
     {
     	$max_id = $request->input('max_id');
@@ -99,6 +142,15 @@ class MusicCommentController extends Controller
     	return response()->json($comments, 200);
     }
 
+    /**
+     * 添加专辑评论.
+     *
+     * @author bs<414606094@qq.com>
+     * @param  Request      $request
+     * @param  MusicSpecial $special
+     * @param  Comment      $comment
+     * @return json
+     */
     public function specialStore(Request $request, MusicSpecial $special, Comment $comment)
     {
         $replyUser = intval($request->input('reply_user', 0));

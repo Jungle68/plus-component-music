@@ -12,6 +12,14 @@ use Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\Models\MusicSpecialLink;
 
 class MusicController extends Controller
 {
+    /**
+     * 专辑详情.
+     *
+     * @author bs<414606094@qq.com>
+     * @param  Request $request
+     * @param  Music   $music  
+     * @return           
+     */
     public function show(Request $request, Music $music)
     {
         $uid = $request->user('api')->id ?? 0;
