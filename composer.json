@@ -23,8 +23,5 @@
               "Zhiyi\\Component\\ZhiyiPlus\\PlusComponentMusic\\Installer\\MusicServiceProvider"
           ]
       }
-  },
-  "require": {
-    "zhiyicx/plus-installer": "^1.0"
   }
 }
