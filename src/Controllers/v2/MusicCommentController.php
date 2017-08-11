@@ -135,7 +135,9 @@ class MusicCommentController extends Controller
     {
     	$max_id = $request->input('max_id');
     	$limit = $request->input('limit', 15);
-    	$comments = $special->comments()->when($max_id, function ($query) use ($max_id) {
+    	$comments = $special->comments()->orWhere(function ($query) use ($special) {
+            return $query->where('commentable_type', 'musics')->whereIn('commentable_id', $special->musics->pluck('id'));
+        })->when($max_id, function ($query) use ($max_id) {
     		return $query->where('id', '<', $max_id);
     	})->limit($limit)->orderBy('id', 'desc')->get();
 
