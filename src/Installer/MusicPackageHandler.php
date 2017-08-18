@@ -5,9 +5,6 @@ namespace Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\Installer;
 use Carbon\Carbon;
 use Zhiyi\Plus\Models\Comment;
 use Zhiyi\Plus\Models\Permission;
-use Zhiyi\Plus\Models\Storage;
-use Zhiyi\Plus\Models\File;
-use Zhiyi\Plus\Models\FileWith;
 use Illuminate\Support\Facades\Schema;
 use Zhiyi\Plus\Support\PackageHandler;
 use Illuminate\Database\Schema\Blueprint;
@@ -139,62 +136,5 @@ class MusicPackageHandler extends PackageHandler
         ]);
 
         return $command->info('Music component install successfully');
-    }
-
-    public function checkstorageHandle($command)
-    {
-        if ($command->confirm('This will change your datas with new storages')) {
-            $musics = Music::get();
-            foreach ($musics as $music) {
-                $music->storage = $this->checkFileId($music->storage, 'music:storage', $music->id, 1);
-                $music->save();
-
-                $singer = $music->singer()->first();
-                $singer->cover =  $this->checkFileId($singer->cover, 'music:singer:cover', $singer->id, 1);
-                $singer->save();
-            } // 迁移音乐相关
-
-            $specials = MusicSpecial::get();
-            foreach ($specials as $special) {
-                $special->storage = $this->checkFileId($special->storage, 'music:special:storage', $special->id, 1);
-                $special->save();
-            }
-        }
-
-        $command->info('have done');
-    }
-
-    protected function checkFileId($storage_id, $channel, $data_id, $user_id = 1)
-    {
-        $info = Storage::where('id', $storage_id)->first(); // 附件迁移
-        $hasMove = FileWith::where('id', $storage_id)->where('channel', $channel)->where('raw', $data_id)->first();  // 已经迁移的不再处理
-        if ($info && (!$hasMove)) {
-            $file = File::where('hash', $info->hash)->first();
-            if (!$file) {
-                $file = new File();
-                $file->hash = $info->hash;
-                $file->origin_filename = $info->origin_filename;
-                $file->filename = $info->filename;
-                $file->mime = $info->mime;
-                $file->width = $info->image_width;
-                $file->height = $info->image_height;
-                $file->save();
-            }
-            if (empty($file->id)) {
-                
-                return $storage_id;
-            }
-            $filewith = new FileWith();
-            $filewith->file_id = $file->id;
-            $filewith->user_id = $user_id;
-            $filewith->channel = $channel;
-            $filewith->raw = $data_id;
-            $filewith->size = ($size = sprintf('%sx%s', $file->width, $file->height)) === 'x' ? null : $size;
-            $filewith->save();
-
-            return $filewith->id; // 迁移生成成功 返回filewithid
-        }
-
-        return $storage_id; // 查找失败暂时原样返回
     }
 }
