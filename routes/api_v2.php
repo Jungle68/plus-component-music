@@ -45,4 +45,10 @@ Route::middleware('auth:api')->group(function () {
 
 	// 取消收藏
 	Route::delete('/music/specials/{special}/collection', 'MusicCollectionController@delete');
+
+	// 获取已购买的音乐
+	Route::get('/music/paids', 'MusicPaidController@musics');
+
+	// 获取已购买的专辑
+	Route::get('/music-specials/paids', 'MusicPaidController@specials');
 });

@@ -1,4 +1,9 @@
-# 获取音乐详情
+# 音乐
+
+- [获取音乐详情](#获取音乐详情)
+- [获取已购买的音乐](#获取已购买的音乐)
+
+## 获取音乐详情
 
 ```
 GET /music/{music}
@@ -40,4 +45,84 @@ Status: 201 OK
     "comment_count": 12, // 评论数
     "has_like": true // 是否已赞
 }
+```
+
+## 获取已购买的音乐
+
+```
+GET /music/paids
+```
+
+### 输入参数
+
+| 名称 | 类型 | 描述 |
+|:----:|:----:|----|
+| limit | Integer | 可选，默认值 20 ，获取条数 |
+| max_id | Integer | 可选，上次获取到数据最后一条 ID，用于获取该 ID 之后的数据。 |
+
+### 响应
+
+```
+Status 200 Ok
+```
+
+```json5
+[ // 音乐数据参见音乐详情
+    {
+        "id": 7,
+        "created_at": "2017-04-17 15:27:59",
+        "updated_at": "2017-07-06 03:53:04",
+        "deleted_at": null,
+        "title": "umbrella",
+        "singer": {
+            "id": 2,
+            "created_at": "2017-03-16 17:22:18",
+            "updated_at": "2017-03-16 17:22:20",
+            "name": "佚名",
+            "cover": {
+                "id": 1,
+                "size": "370x370"
+            }
+        },
+        "storage": {
+            "id": 112
+        },
+        "last_time": 300,
+        "lyric": null,
+        "taste_count": 0,
+        "share_count": 0,
+        "comment_count": 0,
+        "has_like": true
+    },
+    {
+        "id": 3,
+        "created_at": "2017-03-16 17:21:09",
+        "updated_at": "2017-07-06 08:01:18",
+        "deleted_at": null,
+        "title": "别碰我的人",
+        "singer": {
+            "id": 1,
+            "created_at": "2017-03-16 17:22:04",
+            "updated_at": "2017-03-16 17:22:08",
+            "name": "群星",
+            "cover": {
+                "id": 1,
+                "size": "370x370"
+            }
+        },
+        "storage": { // 音乐付费时
+            "id": 133,
+            "amount": "200",
+            "type": "download",
+            "paid": "false",
+            "paid_node": "12" 
+        },
+        "last_time": 200,
+        "lyric": null,
+        "taste_count": 297,
+        "share_count": 0,
+        "comment_count": 23,
+        "has_like": true
+    }
+]
 ```

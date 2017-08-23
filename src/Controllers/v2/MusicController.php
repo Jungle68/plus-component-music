@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Zhiyi\Plus\Http\Controllers\Controller;
 use Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\Models\Music;
-use Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\Models\MusicDigg;
 use Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\Models\MusicSpecial;
 use Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\Models\MusicSpecialLink;
 
