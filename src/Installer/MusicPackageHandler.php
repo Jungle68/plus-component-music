@@ -4,7 +4,7 @@ namespace Zhiyi\Component\ZhiyiPlus\PlusComponentMusic\Installer;
 
 use Carbon\Carbon;
 use Zhiyi\Plus\Models\Comment;
-use Zhiyi\Plus\Models\Permission;
+use Zhiyi\Plus\Models\Ability;
 use Illuminate\Support\Facades\Schema;
 use Zhiyi\Plus\Support\PackageHandler;
 use Illuminate\Database\Schema\Blueprint;
@@ -31,7 +31,7 @@ class MusicPackageHandler extends PackageHandler
     {
         if ($command->confirm('This will delete your datas for music')) {
             Comment::where('component', 'music')->delete();
-            Permission::whereIn('name', ['music-comment', 'music-digg', 'music-collection'])->delete();
+            Ability::whereIn('name', ['music-comment', 'music-digg', 'music-collection'])->delete();
             Schema::dropIfExists('musics');
             Schema::dropIfExists('music_comments');
             Schema::dropIfExists('music_specials');
@@ -111,7 +111,7 @@ class MusicPackageHandler extends PackageHandler
 
         $time = Carbon::now();
 
-        Permission::insert([
+        Ability::insert([
             [
                 'name' => 'music-comment',
                 'display_name' => '评论歌曲',
