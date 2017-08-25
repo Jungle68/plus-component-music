@@ -173,8 +173,8 @@ class MusicCommentController extends Controller
         if ($replyUser) {
             $replyUser = $user->newQuery()->where('id', $replyUser)->first();
             $message = sprintf('%s 回复了您的评论', $user->name);
-            $replyUser->sendNotifyMessage('music:comment-reply', $message, [
-                'music' => $music,
+            $replyUser->sendNotifyMessage('music:special-comment-reply', $message, [
+                'music-special' => $special,
                 'user' => $user,
             ]);
         }
