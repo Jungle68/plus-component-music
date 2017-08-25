@@ -29,8 +29,28 @@ class MusicController extends Controller
         $music->has_like = $music->liked($uid);
         $music = $music->formatStorage($uid);
         $music->increment('taste_count'); // 歌曲增加播放数量
-        MusicSpecial::whereIn('id', MusicSpecialLink::where('music_id', $music->id)->pluck('special_id'))->increment('taste_count'); // 相应专辑增加播放数量
+        
+        $music->musicSpecials->each(function ($musicSpecial) {
+            $musicSpecial->increment('taste_count');
+        }); // 相应专辑增加播放数量 
 
         return response()->json($music)->setStatusCode(200);
+    }
+
+    /**
+     * 增加歌曲分享数.
+     *
+     * @author bs<414606094@qq.com>
+     * @param  Music  $music
+     * @return mixed
+     */
+    public function share(Music $music)
+    {
+        $music->increment('share_count');
+        $music->musicSpecials->each(function ($musicSpecial) {
+            $musicSpecial->increment('share_count');
+        }); 
+
+        return response()->json([])->setStatusCode(204);
     }
 }

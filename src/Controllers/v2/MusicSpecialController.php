@@ -82,4 +82,18 @@ class MusicSpecialController extends Controller
 
         return $response->json($special)->setStatusCode(200);
     }
+
+    /**
+     * 增加分享数,供移动端分享专辑时调用.
+     *
+     * @author bs<414606094@qq.com>
+     * @param  MusicSpecial $special_id
+     * @return mixed
+     */
+    public function share(MusicSpecial $special)
+    {
+        $special->increment('share_count');
+
+        return response()->json([])->setStatusCode(204);
+    }
 }

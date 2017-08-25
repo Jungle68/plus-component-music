@@ -22,6 +22,9 @@ Route::middleware('auth:api')->group(function () {
 	// 获取音乐评论
 	Route::get('/music/{music}/comments', 'MusicCommentController@list');
 
+	// 增加音乐分享数
+	Route::patch('/music/{music}/share', 'MusicController@share');
+
 	// 添加专辑评论
 	Route::post('/music/specials/{special}/comments', 'MusicCommentController@specialStore');
 
@@ -45,6 +48,9 @@ Route::middleware('auth:api')->group(function () {
 
 	// 取消收藏
 	Route::delete('/music/specials/{special}/collection', 'MusicCollectionController@delete');
+
+	// 增加专辑分享数
+	Route::patch('/music/specials/{special}/share', 'MusicSpecialController@share');
 
 	// 获取已购买的音乐
 	Route::get('/music/paids', 'MusicPaidController@musics');

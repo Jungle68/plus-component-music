@@ -28,7 +28,7 @@ class Music extends Model
 
     public function musicSpecials()
     {
-        return $this->belongsToMany(MusicSpecial::class, 'music_special_links', 'music_id', 'special_id')->withTimestamps();
+        return $this->belongsToMany(MusicSpecial::class, 'music_special_links', 'music_id', 'special_id');
     }
 
     public function comments()
